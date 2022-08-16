@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<img src="{% static 'images/manav-rachna-logo.png' %}" width="150" height="150" style="position: absolute; top: 10px; left: 20px;">
+<h1 style="color: red;" class="text-center">Manav Rachna School, Sector 14</h1>
+<h3 style="color: green; margin-bottom: 10px;" class="text-center">Student Voting System</h3>
+<h6 class="text-center">Present No. of votes: {{ votes }}</h6>
+<br>
+{% include 'alerts.html' %}
+<form action="{% url 'register' %}" method="POST">
+    {% csrf_token %}
+    <div class="form-row container" style="margin-top: 15px;">
+        <div class="form-group col-md-3" style="margin-right: 8px;">
+            <label for="exampleInputName1">First Name:</label>
+            <input type="text" class="form-control" id="exampleInputName1" aria-describedby="emailHelp"
+                   placeholder="Enter First Name" name="first_name" {% if has_registered == 1 %}style="pointer-events:none;" {% endif %} required>
+        </div>
+        <div class="form-group col-md-3" style="margin-right: 8px;">
+            <label for="exampleInputName2">Last Name:</label>
+            <input type="text" class="form-control" id="exampleInputName2" aria-describedby="emailHelp"
+                   placeholder="Enter Last Name" name="last_name" {% if has_registered == 1 %}style="pointer-events:none;" {% endif %} required>
+        </div>
+        <div class="form-group col-md-2" style="margin-right: 5px;">
+            <label for="exampleInputName2">Class:</label>
+            <select name="voter_class" class="form-control" {% if has_registered == 1 %}style="pointer-events:none;" {% endif %} required>
+                <option value="" disabled selected hidden>Select</option>
+                {% for i in classes %}
+                <option style="font-size: 1rem; width:30%;" value="{{ i }}">{{ i }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group col-md-2" style="margin-right: 5px;">
+            <label for="exampleInputName2">Section:</label>
+            <select name="voter_section" class="form-control" {% if has_registered == 1 %}style="pointer-events:none;" {% endif %} required>
+                <option value="" disabled selected hidden>Select</option>
+                {% for i in section %}
+                <option style="font-size: 1rem; width:30%;" value="{{ i }}">{{ i }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group col-md-1 text-center" style="padding-left: 40px; padding-top: 15px;">
+            <button type="submit" class="btn btn-primary" {% if has_registered == 1 %}style="pointer-events:none;" {% endif %}>Register
+            </button>
+        </div>
+    </div>
+</form>
+{% if has_registered == 1 %}
+<form action="{% url 'contestant' %}" method="POST">
+    {% csrf_token %}
+    <div class="form-row container">
+        <div class="form-group col-md-5" style="margin-right: 10px;">
+            <h5>Head Boy nominations</h5>
+            <select name="headboy" class="form-control" style="width:40%;" required>
+                <option value="" disabled selected hidden>Select</option>
+                {% for i in headboy_contestants %}
+                <option style="font-size: 1rem; width:30%;" value="{{ i.contestant_name }}">{{ i.contestant_name }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group col-md-5" style="margin-right: 5px;">
+            <h5>Head Girl nominations</h5>
+            <select name="headgirl" class="form-control" style="width:40%;" required>
+                <option value="" disabled selected hidden>Select</option>
+                {% for i in headgirl_contestants %}
+                <option value="{{ i.contestant_name }}">{{ i.contestant_name }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <div class="form-row container">
+        <div class="form-group col-md-5" style="margin-right: 10px;">
+            <h5>Vice Head Boy nominations</h5>
+            <select name="vice_headboy" class="form-control" style="width:40%;" required>
+                <option value="" disabled selected hidden>Select</option>
+                {% for i in vice_headboy_contestants %}
+                <option style="font-size: 1rem; width:30%;" value="{{ i.contestant_name }}">{{ i.contestant_name }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group col-md-5" style="margin-right: 5px;">
+            <h5>Vice Head Girl nominations</h5>
+            <select name="vice_headgirl" class="form-control" style="width:40%;" required>
+                <option value="" disabled selected hidden>Select</option>
+                {% for i in vice_headgirl_contestants %}
+                <option value="{{ i.contestant_name }}">{{ i.contestant_name }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <div class="form-row container">
+        <div class="form-group col-md-5" style="margin-right: 10px;">
+            <h5>Sports Captain nominations</h5>
+            <select name="sports_captain" class="form-control" style="width:40%;" required>
+                <option value="" disabled selected hidden>Select</option>
+                {% for i in sports_captain_contestants %}
+                <option style="font-size: 1rem; width:30%;" value="{{ i.contestant_name }}">{{ i.contestant_name }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group col-md-5" style="margin-right: 5px;">
+            <h5>Vice Sports Captain nominations</h5>
+            <select name="vice_sports_captain" class="form-control" style="width:40%;" required>
+                <option value="" disabled selected hidden>Select</option>
+                {% for i in vice_sports_captain_contestants %}
+                <option value="{{ i.contestant_name }}">{{ i.contestant_name }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group col-md-1 text-center" style="padding-left: 55px; padding-top: 15px;">
+            <button type="submit" class="btn btn-primary">Vote</button>
+        </div>
+    </div>
+    <input type="hidden" name="first_name" value="{{ first_name }}">
+    <input type="hidden" name="last_name" value="{{ last_name }}">
+    <input type="hidden" name="voter_class" value="{{ voter_class }}">
+    <input type="hidden" name="voter_section" value="{{ voter_section }}">
+
+</form>
+{% endif %}
+{% endblock %}
