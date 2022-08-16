@@ -36,7 +36,7 @@ def voting(request, has_registered, first_name=None, last_name=None, voter_class
     return render(request, 'voting.html', context)
 
 
-def register(request):
+def register(request, is_registered):
     if request.method == 'POST':
         first_name = request.POST['first_name']
         last_name = request.POST['last_name']
