@@ -24,7 +24,9 @@ SECRET_KEY = 'django-insecure-uuiz3@xgci8+txb5x+683ua)a%$a)8sfyq*sfg=%mv)#4=++d%
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "student-voting-system2022.herokuapp.com"
+]
 
 # Application definition
 
