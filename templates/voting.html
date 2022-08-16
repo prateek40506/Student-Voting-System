@@ -7,7 +7,7 @@
 <h6 class="text-center">Present No. of votes: {{ votes }}</h6>
 <br>
 {% include 'alerts.html' %}
-<form action="{% url 'register' %}" method="POST">
+<form action="{% url 'register' has_registered %}" method="POST">
     {% csrf_token %}
     <div class="form-row container" style="margin-top: 15px;">
         <div class="form-group col-md-3" style="margin-right: 8px;">
