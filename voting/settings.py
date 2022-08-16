@@ -25,7 +25,8 @@ SECRET_KEY = 'django-insecure-uuiz3@xgci8+txb5x+683ua)a%$a)8sfyq*sfg=%mv)#4=++d%
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    "student-voting-system2022.herokuapp.com"
+    "student-voting-system2022.herokuapp.com",
+    "localhost"
 ]
 
 # Application definition
